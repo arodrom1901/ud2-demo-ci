@@ -41,6 +41,10 @@ app.get('/restar', (req, res) => {
   res.send(`El resultado de restar ${a} - ${b} es ${resultado}`);
 });
 
+app.get('/mensaje', (req, res) => {
+  res.send('Hola, esto es un mensaje de prueba');
+});
+
 // Ponemos el servidor a "escuchar" en el puerto definido
 app.listen(PORT, () => {
   console.log(`Servidor escuchando en el puerto ${PORT}`);
