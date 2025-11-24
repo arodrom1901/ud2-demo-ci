@@ -1,5 +1,5 @@
-// Importamos la librería Express
 const express = require('express');
+const morgan = require('morgan');
 // Importamos nuestras funciones de la calculadora
 const { sumar, restar } = require('./calculadora');
 
@@ -8,6 +8,17 @@ const app = express();
 // Definimos el puerto. Render nos lo dará en una variable de entorno,
 // si no, usamos el 3000 para local.
 const PORT = process.env.PORT || 3000;
+
+// --- MIDDLEWARES ---
+app.use(morgan('combined'));
+
+app.get('/health', (req, res) =>{
+  res.json({
+    status: 'UP',
+    timestamp: new Date(),
+    uptime: process.uptime()
+  })
+})
 
 // Definimos una ruta "Home" (/)
 app.get('/', (req, res) => {
@@ -42,9 +53,8 @@ app.get('/restar', (req, res) => {
 });
 
 app.get('/mensaje', (req, res) => {
-  res.send('Hola, esto es un mensaje de prueba');
+  res.send('¡Hola Mundo! Este es un mensaje de prueba.');
 });
-
 // Ponemos el servidor a "escuchar" en el puerto definido
 app.listen(PORT, () => {
   console.log(`Servidor escuchando en el puerto ${PORT}`);
